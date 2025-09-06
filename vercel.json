@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/telebot.py": {
-      "runtime": "python3.9"
-    }
-  },
   "routes": [
     {
       "src": "/api/telebot",
