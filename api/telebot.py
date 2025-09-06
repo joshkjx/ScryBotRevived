@@ -9,7 +9,7 @@ from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import MessageHandler, filters, CommandHandler, ApplicationBuilder, ContextTypes, CallbackQueryHandler
 import requests as rq
 
-load_dotenv
+load_dotenv()
 TOKEN = os.environ.get("TELE_BOT_TOKEN")
 
 logging.basicConfig(
