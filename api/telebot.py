@@ -1,4 +1,4 @@
-import os
+import os, asyncio
 from typing import Optional
 from dotenv import load_dotenv
 import urllib
@@ -6,7 +6,7 @@ from flask import Flask, request
 import logging
 
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import MessageHandler, filters, CommandHandler, ApplicationBuilder, ContextTypes, CallbackQueryHandler
+from telegram.ext import CommandHandler, ApplicationBuilder, ContextTypes, CallbackQueryHandler
 import requests as rq
 
 load_dotenv()
@@ -177,20 +177,23 @@ application.add_handler(img_handler)
 application.add_handler(CallbackQueryHandler(mdfc_button))
 
 @app.route("/", methods =['POST'])
-async def webhook():
+def webhook():
     '''
     Telegram Webhook
     '''
     # Method 1
     if request.headers.get('content-type') == 'application/json':
-        async with application:
-            update = Update.de_json(request.get_json(force=True),application.bot)
-            await application.process_update(update)
+            asyncio.run(process_tele_update())
             return('', 204)
     else:
         return ('Bad request', 400)
 
+async def process_tele_update():
+    async with application:
+        update = Update.de_json(request.get_json(force=True),application.bot)
+        await application.process_update(update)
 
-@app.get("/")
+
+@app.route("/", methods =['GET'])
 def index():
     return {"message": "Hello World"}
