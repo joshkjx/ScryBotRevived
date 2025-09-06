@@ -1,2 +1,2 @@
-from basic_handlers import *
-from card_handlers import *
+from .basic_handlers import *
+from .card_handlers import *
