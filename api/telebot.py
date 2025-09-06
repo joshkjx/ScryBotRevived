@@ -197,3 +197,6 @@ async def process_tele_update():
 @app.route("/", methods =['GET'])
 def index():
     return {"message": "Hello World"}
+
+if __name__ == "__main__":
+    handler = app
